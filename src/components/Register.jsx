@@ -68,7 +68,7 @@ const Register = () => {
       setLoading(true);
       // Proceed with form submission (e.g., API call)
       try {
-        const res = await axios.post("http://localhost:3001/api/register", {
+        const res = await axios.post("http://localhost:3000/api/register", {
           firstName,
           lastName ,
           email,
