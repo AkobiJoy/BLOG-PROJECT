@@ -6,7 +6,7 @@ import { MdModeNight } from "react-icons/md";
 const Navbar = () => {
   return (
     <div>
-      <div className="flex items-center justify-between bg-white shadow-lg shadow-sky-200 px-28 py-4 cursor-pointer fixed z-10 w-full">
+      <div className="flex items-center justify-between bg-white shadow-lg shadow-sky-100 px-28 py-4 cursor-pointer fixed z-10 w-full">
         <ul className="flex items-center gap-x-12 relative">
           {/* Wrapper div for Hot Examples and dropdown */}
           <div className="relative group">
