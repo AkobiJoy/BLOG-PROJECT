@@ -61,17 +61,6 @@ const Navbar = () => {
             </button>
           </form>
 
-          {/* <form className="relative w-fit flex items-center z-10" action="">
-            <input
-              className=" text-xl rounded-full p-2 w-[250px] border border-neutral-200 focus:outline-none"
-              type="text"
-              placeholder="Enter search"
-              required
-            />
-            <button className="absolute left-[13rem]">
-              <IoSearchCircleOutline className="text-2xl" type="submit" />
-            </button>
-          </form> */}
 
           <div className="flex items-center gap-1 border rounded-full">
             <p>
