@@ -16,7 +16,8 @@ import mongoose from "mongoose";
         email:{
             type:String,
             required:true,
-            trim:true
+            trim:true,
+            unique:true
         },
         gender:{
             type:String,
@@ -33,4 +34,4 @@ import mongoose from "mongoose";
     }
  )
 const adminModel= mongoose.models.admin || mongoose.model("admin",adminSchema)
- 
+ export default adminModel
