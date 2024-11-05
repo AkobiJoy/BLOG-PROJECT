@@ -1,8 +1,16 @@
+"use client"
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 import mockData from './MockData'
+import { RiAccountPinCircleLine } from "react-icons/ri";
 
 const Hero = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+   // Toggle dropdown visibility
+   const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <section className='px-40 py-24 flex-'>
       <div className='mb-12'>
@@ -35,6 +43,43 @@ const Hero = () => {
         ))}
           </div>
         </div>
+ 
+      <div className='fixed bottom-10 right-10'>
+      {/* Account button */}
+      <button
+        onClick={toggleDropdown}
+        className='bg-sky-300 font-bold rounded-full py-3 px-3'
+      >
+        <RiAccountPinCircleLine className='text-5xl' />
+      </button>
+
+      {/* Dropdown menu (above button) */}
+      {isDropdownOpen && (
+        <div className='slide-top absolute bottom-0 right-0 bg-white shadow-sky-100 shadow-lg rounded-lg py-3 w-44'>
+          <ul className='text-gray-700'>
+            <li
+              onClick={() => setIsDropdownOpen(false)}
+              className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
+            >
+              Register
+            </li>
+            <li
+              onClick={() => setIsDropdownOpen(false)}
+              className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
+            >
+              Login
+            </li>
+            <li
+              onClick={() => setIsDropdownOpen(false)}
+              className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
+            >
+              Logout
+            </li>
+          </ul>
+        </div>
+      )}
+    </div>
+
     </section>
     
   
