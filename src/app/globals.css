@@ -41,12 +41,12 @@ body {
 }
 
 
-/* .car {
-	background-image:url(../../public/IMG-20240919-WA0126.jpg);
+ .car {
+	background-image:url(../../public/w1.jpg);
         background-size:cover;
         background-position:bottom;
         background-repeat: no-repeat;
-} */
+} 
 
 .kenburns-top {
 	-webkit-animation: kenburns-top 5s ease-in ;

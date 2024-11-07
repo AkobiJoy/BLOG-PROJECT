@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import mockData from './MockData'
 import { RiAccountPinCircleLine } from "react-icons/ri";
+import Link from 'next/link';
 
 const Hero = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -57,18 +58,23 @@ const Hero = () => {
       {isDropdownOpen && (
         <div className='slide-top absolute bottom-0 right-0 bg-white shadow-sky-100 shadow-lg rounded-lg py-3 w-44'>
           <ul className='text-gray-700'>
+            <Link href={'/register'}>
             <li
               onClick={() => setIsDropdownOpen(false)}
               className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
             >
               Register
             </li>
+            </Link>
+
+            <Link href={'/login'}>
             <li
               onClick={() => setIsDropdownOpen(false)}
               className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
             >
               Login
             </li>
+            </Link>
             <li
               onClick={() => setIsDropdownOpen(false)}
               className='px-4 py-2 hover:bg-gray-100 cursor-pointer'
