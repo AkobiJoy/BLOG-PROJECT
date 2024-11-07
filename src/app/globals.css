@@ -44,7 +44,7 @@ body {
  .car {
 	background-image:url(../../public/w1.jpg);
         background-size:cover;
-        background-position:bottom;
+        background-position:top;
         background-repeat: no-repeat;
 } 
 

@@ -199,8 +199,8 @@ export default function BlogForm() {
   };
 
   return (
-    <div className='car flex items-center justify-center py-[10rem] px-[10rem] h-[100vh]'>
-  <div className="max-w-md mx-auto p-4 bg-white rounded shadow-lg shadow-sky-100 mt-16 bg-opacity-10">
+    <div className='car flex items-center  py-[7rem] px-[10rem] h-[100vh]'>
+  <div className="max-w-md  p-8 bg-white rounded shadow-lg shadow-sky-100 mt-2 w-full">
       <h2 className="text-2xl font-semibold mb-4 text-center">Create a Blog Post</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
