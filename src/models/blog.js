@@ -19,7 +19,7 @@ blogSchema=new mongoose.Schema({
         type:String,
         required:true
     }
-}, {timestamps})  //checks the time
+}, {timestamps:true})  //checks the time
 
 const blogModel=mongoose.models.blog  || mongoose.model("blog",blogSchema)
 export default blogModel
