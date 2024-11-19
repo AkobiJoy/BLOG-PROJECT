@@ -4,14 +4,15 @@
 
 
 "use client"
-// we import the methods we need from forebse
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import app from "@/utils/firebase"
+// // we import the methods we need from forebse
+// import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+// import app from "@/utils/firebase"
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function BlogForm() {
       // initialize firebase storage
-      const storage = getStorage(app);
+      // const storage = getStorage(app);
   // Define state for each form field
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -22,57 +23,57 @@ export default function BlogForm() {
   const [media, setMedia] = useState('')
 
   // handle file uplodad
-  // useEffect willonly rin when my file chnages
+  // useEffect will only run when my file chnages
 
-  useEffect(() => {
-    const upload = () => {
-        console.log("it is working")
-        // create new unique name for files to be uploaded 
-        const newFileName = new Date().getTime() + file.name
-        console.log(file)
+//   useEffect(() => {
+//     const upload = () => {
+//         console.log("it is working")
+//         // create new unique name for files to be uploaded 
+//         const newFileName = new Date().getTime() + file.name
+//         console.log(file)
 
-        const storageRef = ref(storage, newFileName);
+//         const storageRef = ref(storage, newFileName);
 
-        const uploadTask = uploadBytesResumable(storageRef, file);
+//         const uploadTask = uploadBytesResumable(storageRef, file);
 
-        // Register three observers:
-        // 1. 'state_changed' observer, called any time the state changes
-        // 2. Error observer, called on failure
-        // 3. Completion observer, called on successful completion
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-                switch (snapshot.state) {
-                    case 'paused':
-                        console.log('Upload is paused');
-                        break;
-                    case 'running':
-                        console.log('Upload is running');
-                        break;
-                }
-            },
-            (error) => {
-                // Handle unsuccessful uploads
+//         // Register three observers:
+//         // 1. 'state_changed' observer, called any time the state changes
+//         // 2. Error observer, called on failure
+//         // 3. Completion observer, called on successful completion
+//         uploadTask.on('state_changed',
+//             (snapshot) => {
+//                 // Observe state change events such as progress, pause, and resume
+//                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+//                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+//                 console.log('Upload is ' + progress + '% done');
+//                 switch (snapshot.state) {
+//                     case 'paused':
+//                         console.log('Upload is paused');
+//                         break;
+//                     case 'running':
+//                         console.log('Upload is running');
+//                         break;
+//                 }
+//             },
+//             (error) => {
+//                 // Handle unsuccessful uploads
 
-            },
-            () => {
-                // Handle successful uploads on complete
-                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                    // save the download url in the state "media" to be stored in the database
+//             },
+//             () => {
+//                 // Handle successful uploads on complete
+//                 // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+//                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+//                     console.log('File available at', downloadURL);
+//                     // save the download url in the state "media" to be stored in the database
 
-                    setMedia(downloadURL)
-                });
-            }
-        );
-    }
-    // call upload function when file state is not null
-    file && upload()
-}, [file])
+//                     setMedia(downloadURL)
+//                 });
+//             }
+//         );
+//     }
+//     // call upload function when file state is not null
+//     file && upload()
+// }, [file])
   // State for form validation messages
   const [errors, setErrors] = useState({});
 
@@ -80,7 +81,7 @@ export default function BlogForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
+    
     
   
 
@@ -89,11 +90,29 @@ export default function BlogForm() {
     if (!title) formErrors.title = 'Title is required';
     else if (!author) formErrors.author = 'Author is required';
     else if (!category) formErrors.category = 'Please select a category';
-    else if (!image) formErrors.image = 'Image is required';
+    // else if (!image) formErrors.image = 'Image is required';
     else if (!body) formErrors.body = 'Body of the post is required';
 
     if (Object.keys(formErrors).length === 0) {
-      console.log({ title, author, category, image, body });
+
+      try{
+        const res = await axios.post("http://localhost:3000/api/createBlog", {
+          title,
+          author,
+          category,
+          media,
+          body
+        })
+  
+        console.log(res)
+        if(res.status===201){
+          console.log("blog is uploaded");
+        }
+      }
+      catch(err){
+        console.log(err.message)
+      }
+      // console.log({ title, author, category, media, body });
       alert('Blog post submitted successfully!');
       // Clear the form (optional)
       setTitle('');
@@ -104,15 +123,9 @@ export default function BlogForm() {
       setErrors({});
     } else {
       setErrors(formErrors);
+     
 
-
-      const res = await axios.post("http://localhost:3000/api/createBlog", {
-        title,
-        author,
-        category,
-        media,
-        body
-      })
+      
 
     }
   };
@@ -169,7 +182,7 @@ export default function BlogForm() {
             {errors.category && <p className="text-red-500 text-xs mt-1">{errors.category}</p>}
           </div>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label htmlFor="image" className="block text-sm font-medium text-gray-700">
               Upload Image
             </label>
@@ -180,7 +193,9 @@ export default function BlogForm() {
               className={`mt-1 w-full ${errors.image ? 'text-red-500' : 'text-gray-500'}`}
             />
             {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image}</p>}
-          </div>
+          </div> */}
+
+          <input placeholder="Image url"  className="mt-1 p-2 w-full border rounded outline-none"type="text" onChange={(e)=>setMedia(e.target.value)}/>
 
           <div className="mb-4">
             <label htmlFor="body" className="block text-sm font-medium text-gray-700">

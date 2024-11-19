@@ -1,6 +1,6 @@
 import mongoose from  "mongoose"
 
-blogSchema=new mongoose.Schema({
+const blogSchema=new mongoose.Schema({
     title:{
         type:String,
         required:true
